@@ -1,7 +1,9 @@
 package com.may.meta_study.controller;
 
 import com.may.meta_study.entity.Course;
+import com.may.meta_study.entity.vo.EnrollCourseRequest;
 import com.may.meta_study.service.ICourseService;
+import com.may.meta_study.service.IStudentCourseService;
 import com.may.meta_study.entity.vo.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,6 +30,9 @@ public class CourseController {
     
     @Autowired
     private ICourseService courseService;
+    
+    @Autowired
+    private IStudentCourseService studentCourseService;
     
     /**
      * 获取学生课程列表
@@ -118,6 +123,34 @@ public class CourseController {
             return Result.success(course);
         } catch (Exception e) {
             return Result.fail("获取课程详情失败：" + e.getMessage());
+        }
+    }
+    
+    /**
+     * 学生选课
+     *
+     * @param studentId 学生ID
+     * @param courseId 课程ID
+     * @return 选课结果
+     */
+    @Operation(summary = "学生选课")
+    @PostMapping("/courses/student")
+    public Result<Boolean> enrollCourse(@RequestBody EnrollCourseRequest enrollCourse) {
+        try {
+            // 获取课程信息
+            Course course = courseService.getById(enrollCourse.getCourseId());
+            if (course == null) {
+                return Result.fail("课程不存在");
+            }
+            // 调用选课服务
+            boolean success = studentCourseService.enrollCourse(enrollCourse.getStudentId(), enrollCourse.getCourseId());
+            if (success) {
+                return Result.success(true);
+            } else {
+                return Result.fail("选课失败");
+            }
+        } catch (Exception e) {
+            return Result.fail("选课失败：" + e.getMessage());
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.may.meta_study.tools;
+package com.may.meta_study.tools.test;
 
 import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;

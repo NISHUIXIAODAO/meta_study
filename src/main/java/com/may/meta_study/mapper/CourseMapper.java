@@ -1,6 +1,7 @@
 package com.may.meta_study.mapper;
 
 import com.may.meta_study.entity.Course;
+import dev.langchain4j.agent.tool.P;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -70,4 +71,7 @@ public interface CourseMapper {
      */
     @Select("SELECT COUNT(*) FROM courses WHERE teacher_id = #{teacherId}")
     int getTeacherCourseCount(@Param("teacherId") Long teacherId);
+
+    @Select("select courses_name from courses where courses_id = #{coursesId}")
+    String getCourseName(@Param("coursesId") Long courseId);
 }

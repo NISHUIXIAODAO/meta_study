@@ -2,6 +2,8 @@ package com.may.meta_study.entity;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * 学生练习题目实体类
  */
@@ -27,4 +29,9 @@ public class PracticeSession {
      * 练习内容
      */
     private String body;
+
+    /**
+     * 练习时间
+     */
+    private LocalDateTime sessionTime;
 }

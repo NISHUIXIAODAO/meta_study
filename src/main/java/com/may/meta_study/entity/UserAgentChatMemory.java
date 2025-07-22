@@ -1,22 +1,20 @@
 package com.may.meta_study.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
 
 /**
  * 用户与agent聊天记录实体类
- * 该实体类对应MongoDB中的集合
+ * 该实体类对应MySQL中的user_agent_chat_memory表
  */
 @Data
-@Document(collection = "user_agent_chat_memory")
 public class UserAgentChatMemory {
     
     /**
-     * MongoDB文档ID
+     * 记录ID
      */
-    @Id
-    private String id;
+    private Long memoryId;
     
     /**
      * 用户ID
@@ -24,12 +22,12 @@ public class UserAgentChatMemory {
     private Long userId;
     
     /**
-     * 记忆ID
-     */
-    private String memoryId;
-    
-    /**
      * 描述
      */
     private String description;
+    
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updatedAt;
 }
